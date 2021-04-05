@@ -56,7 +56,7 @@
 				$message .= '<h2>Your Invoice Reciept: Test Mode</h2>';
 				$message .= '<h2>Name: '. $name.'</h2>';
 				$message .= '<h2>Email:  '.$receipient.' </h2>';
-				$message .= '<h2>Phone:'.$phone.' </h2>';
+				$message .= '<h2>Phone: '.$phone.' </h2>';
 				$message .= '<h2>Package: '.$package.' </h2>';
 				$message .= '<h2>Price: '.$price.' </h2>';
 				$message .= '<br>';

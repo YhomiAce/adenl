@@ -48,8 +48,8 @@
                                 <label for="package">Select Package</label>
                                 <select name="package" id="package" required class="form-control">
                                     <option value="" disabled selected="selected">Select Package</option>
-                                    <option value="Single Application">Single Plan</option>
-                                    <option value="Family Application">Family Plan</option>
+                                    <option value="Single Application">Single Application</option>
+                                    <option value="Family Application">Family Application</option>
                                 </select>
                             </div>
                         </div>
