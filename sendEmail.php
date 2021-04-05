@@ -25,13 +25,10 @@
 		$to = 'kareemyomi91@gmail.com';
 		$subject = 'Invoice Reciept';
 		$address = array($email,$email1,$email2);
+		$msg = "Note: This Payment is NOT for VISA. It is refundable if the company don't deliver within 10-Month from date therein. Any misrepresentation (Documents) to the company will have negative effects on T&C.";
 
 		
-		// if(mail($to,$subject,$message,$headers)){
-		// 	echo "Email sent Successfully";
-		// }else{
-		// 	echo "Email Not Sent";
-		// }
+	
 		
 		try{
 			$mail->isSMTP();
@@ -62,6 +59,9 @@
 				$message .= '<h2>Phone:'.$phone.' </h2>';
 				$message .= '<h2>Package: '.$package.' </h2>';
 				$message .= '<h2>Price: '.$price.' </h2>';
+				$message .= '<br>';
+				$message .= '<br>';
+				$message .= '<h4 style="color:rgb(225,173,1);">Disclaimer: <h4></p>'.$msg.' </p>';
 				
 				$message .= '</div>';
 				$message .= "</body></html>";

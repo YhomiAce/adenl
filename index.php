@@ -12,8 +12,8 @@
     <div class="container">
         <div class="container content-invoice">
             <form action="#" id="invoice-form" method="post" class="invoice-form"> 
-                <input type="hidden" name="email1" id="email1" value="yhomiace18@gmail.com">
-                <input type="hidden" name="email2" id="email2" value="yhomi1996@gmail.com">
+                <input type="hidden" name="email1" id="email1" value="adeyinkamomduka@gmail.com">
+                <input type="hidden" name="email2" id="email2" value="Adenl.dpu@gmail.com">
                 <div class="load-animate animated fadeInUp">
                     <div class="row">
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -48,8 +48,8 @@
                                 <label for="package">Select Package</label>
                                 <select name="package" id="package" required class="form-control">
                                     <option value="" disabled selected="selected">Select Package</option>
-                                    <option value="Single Plan">Single Plan</option>
-                                    <option value="Family Plan">Family Plan</option>
+                                    <option value="Single Application">Single Plan</option>
+                                    <option value="Family Application">Family Plan</option>
                                 </select>
                             </div>
                         </div>
@@ -61,16 +61,21 @@
                                     <th>ID</th>
                                     <th>Package Name</th>
                                     <th>Price</th>
+                                    <th>Amount In Words</th>
                                 </tr>
                                 <tr id="single_plan" style="display:none;">
                                     <td>1</td>
                                     <td>Single Plan</td>
-                                    <td>N5000</td>
+                                    <td>#57,500.00</td>
+                                    <td>
+                                        <p>Fifty Seven Thousand, Five Hundred Naira Only</p>
+                                    </td>
                                 </tr>
                                 <tr id="family_plan" style="display:none;">
                                     <td>1</td>
                                     <td>Family Plan</td>
-                                    <td>N50000</td>
+                                    <td>#96,000.00</td>
+                                    <td>Ninety Six Thousand Naira Only</td>
                                 </tr>
                             </table>
                         </div>
@@ -103,6 +108,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/invoice.js"></script>
 </body>
 </html>

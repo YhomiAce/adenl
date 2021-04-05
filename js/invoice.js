@@ -2,11 +2,11 @@
 	
 	
 	$('#package').on('change',e=>{
-		if($('#package').val() === "Single Plan"){
+		if($('#package').val() === "Single Application"){
 			$('#single_plan').show()
 			$('#family_plan').hide()
 		}
-		if($('#package').val() === "Family Plan"){
+		if($('#package').val() === "Family Application"){
 			$('#family_plan').show()
 			$('#single_plan').hide()
 			
@@ -22,11 +22,11 @@
 		if($('#invoice-form')[0].checkValidity()){
 			e.preventDefault();
 			let planPrice 
-			if($('#package').val() === "Single Plan"){
-				planPrice = 5000;
+			if($('#package').val() === "Single Application"){
+				planPrice = 'N57,500.00';
 			}
-			if($('#package').val() === "Family Plan"){
-				planPrice = 50000;
+			if($('#package').val() === "Family Application"){
+				planPrice = 'N96,000.00';
 			}
 			$.ajax({
 				url:"sendEmail.php",
@@ -34,6 +34,13 @@
 				data: $('#invoice-form').serialize()+`&action=send_invoice&price=${planPrice}`,
 				success: res =>{
 					console.log(res);
+					swal.fire({
+                        title:'Invoice Approved Successfully',
+                        icon:"success",
+                        
+                    }).then(function(){
+                        window.location.reload(false)
+                    })
 				}
 			})
 		}
