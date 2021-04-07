@@ -1,116 +1,92 @@
+<?php
+    session_start();
+    require_once "db.php";
+    $msg = "";
+    if(isset($_POST['login'])){
+        
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
+        if(empty($username) && empty($password)){
+            $msg = "Please fill all fields";
+        }else{
+            $sql = "SELECT * FROM users WHERE username = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$username]);
+            $user = $stmt->fetch();
+            if(!$user){
+                $msg ="user does not Exist. Contact Administrator";
+            }else{
+                if ($password !== $user['password']) {
+                    $msg = "Invalid Password";
+                }else{
+                    $_SESSION['user'] = $username;
+                    header('Location:invoice.php');
+                }
+            }
+
+        }
+    }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <title>Login To Invoice</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" />
+    <style>
+      .common-img-bg {
+  background-size: cover;
+  background: url(images/bg.jpg);
+  width: 100vw;
+  height: 100vh; }
+    
+    </style>
 </head>
-<body>
-    <div class="container">
-        <div class="container content-invoice">
-            <form action="#" id="invoice-form" method="post" class="invoice-form"> 
-                <input type="hidden" name="email1" id="email1" value="adeyinkamomduka@gmail.com">
-                <input type="hidden" name="email2" id="email2" value="Adenl.dpu@gmail.com">
-                <div class="load-animate animated fadeInUp">
-                    <div class="row">
-                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                            <h2 class="title">Invoice System</h2>
-                            
-                        </div>		    		
+
+
+    <div class="container common-img-bg">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mt-5">
+                
+                <div class="card border-primary ">
+                    <div class="card-header bg-primary">
+                        <h4 class="text-center text-light">Login Here</h4>
                     </div>
-                    <input id="currency" type="hidden" value="$">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                            <h3>From,</h3>
-                            ADEYINKA ESTHER NIG. LTD. <br>
-                            18, Adeleke Street, Off Tinuade, <br>
-                            Off Allen Avenue, First Bank Bus-Stop, <br>
-                            Ikeja,Lagos<br>
-                        </div>      		
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
-                            <h3>To,</h3>
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control" required name="name" id="name" placeholder="Enter Name">
-                            </div>
+                    <div class="card-body">
+                        <?php if($msg !=""): ?>
+                                <div class="alert alert-danger"><?php echo $msg; ?> </div>
+
+                        <?php endif; ?>
+                        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required class="form-control" placeholder="Email Address">
+                                <input type="text" name="username" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" id="phone" name="phone" required class="form-control" placeholder="Phone Number">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="package">Select Package</label>
-                                <select name="package" id="package" required class="form-control">
-                                    <option value="" disabled selected="selected">Select Package</option>
-                                    <option value="Single Application">Single Application</option>
-                                    <option value="Family Application">Family Application</option>
-                                </select>
+                                <input type="submit" name="login" class="btn btn-primary btn-block">
                             </div>
-                        </div>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <table class="table table-bordered table-hover" id="invoiceItem">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Package Name</th>
-                                    <th>Price</th>
-                                    <th>Amount In Words</th>
-                                </tr>
-                                <tr id="single_plan" style="display:none;">
-                                    <td>1</td>
-                                    <td>Single Plan</td>
-                                    <td>#57,500.00</td>
-                                    <td>
-                                        <p>Fifty Seven Thousand, Five Hundred Naira Only</p>
-                                    </td>
-                                </tr>
-                                <tr id="family_plan" style="display:none;">
-                                    <td>1</td>
-                                    <td>Family Plan</td>
-                                    <td>#96,000.00</td>
-                                    <td>Ninety Six Thousand Naira Only</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- <div class="row">
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                            <div class="form-group">
-                                <label for="approve">Approved</label>
-                                <input type="checkbox" value="Yes" name="approve" id="approve" class="form-control-check">
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="row">	
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                           
-                            <div class="form-group">
-                                
-                                <input data-loading-text="Saving Invoice..." type="submit" id="invoice_btn" name="invoice_btn" value="Approve Invoice" class="btn btn-success btn-block submit_btn invoice-save-btm">						
-                            </div>
-                            
-                        </div>
-                        
-                    </div>
-                    <div class="clearfix"></div>		      	
                 </div>
-            </form>			
+            </div>
         </div>
-        </div>	
     </div>
-
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="js/invoice.js"></script>
 </body>
-</html>
 
-<
+</html>

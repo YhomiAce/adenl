@@ -34,18 +34,24 @@
 				data: $('#invoice-form').serialize()+`&action=send_invoice&price=${planPrice}`,
 				success: res =>{
 					console.log(res);
-					swal.fire({
-                        title:'Invoice Approved Successfully',
-                        icon:"success",
-                        
-                    }).then(function(){
-                        window.location.reload(false)
-                    })
+					if(res === "success"){
+						swal.fire({
+						title:'Invoice Sent Successfully',
+						icon:"success"	
+						}).then(function(){
+							window.location.reload(false)
+						})
+					}else{
+						$('#errorMsg').text(res)
+					}
+					
 				}
 			})
 		}
 		
 	})
+
+	
 });	
 
 
